@@ -1,1 +1,56 @@
 
+<!doctype html>
+<html>
+<link rel="stylesheet" type="text/css" href="static/style.css">
+   <body>
+      <div class = "contain">
+         <div class = "inner1">
+
+         <p class="looking-for-a-lollip">UPGRAD ASSIGNMENT</p>
+      <p class="body-1">UPGRAD ITEMS</p></div>
+      <form  action = "{{ url_for('sendemail') }}"  method="POST">
+      <table border = 1>
+         <thead>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Price</td>
+            <td>Details</td>
+            <td>Category</td>
+            <td>Brand</td>
+                        <td>Interested</td>
+
+         </thead>
+         
+         {% for row in rows %}
+            <tr>
+               <td>{{row["id"]}}</td>
+               <td>{{row["name"]}}</td>
+               <td> {{ row["price"]}}</td>
+               <td>{{row["details"]}}</td>
+               <td> {{ row["category"]}}</td>
+               <td>{{row["Brand"]}}</td>
+                              <td><input type="checkbox" name="checkboxes" value="{{row['name']}}"></td>
+            </tr>
+         {% endfor %}
+      </table>
+                   <div class = "inner2">
+                     <div class ="email-container">
+               <input name="text">
+               <input type="submit" value="Send Email"></div>
+            </div>
+               </form>
+            <div class = "inner2">
+            <div class="search-container">
+            <form action = "{{ url_for('result') }}" method = "POST">
+            <input type="text" placeholder="Search.." name="text" value="{{ search }}">
+            <button type="submit"> SEARCH<i class="fa fa-search"></i></button>
+            </form>
+            </div>
+
+         
+         </div>
+      
+      </div>
+      
+   </body>
+</html>
