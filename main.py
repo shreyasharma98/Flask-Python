@@ -1,12 +1,5 @@
 from flask import Flask, render_template, request
 import sqlite3 as sql
-
-
-
-
-
-
-
 from flask_mail import Mail, Message
 import os
 app = Flask(__name__)
@@ -14,27 +7,14 @@ app = Flask(__name__)
 mail=Mail(app)
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'iamshreya1915@gmail.com'
-app.config['MAIL_PASSWORD'] = 'Shreya@1998'
+app.config['MAIL_USERNAME'] = 'Yourmail@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Yourpassword'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail=Mail(app)
+
+
 @app.route('/')
-def index():
-   msg = Message('Hello', sender = 'iamshreya1915@gmail.com', recipients = ['shreya.36.ss@gmail.com'])
-   msg.body = "Hello Flask message sent from Flask-Mail"
-   mail.send(msg)
-   return "Sent"
-
-
-
-
-
-
-
-
-
-
 @app.route("/home")
 def home():
    con = sql.connect("mydatabase.db")
@@ -51,18 +31,18 @@ def home():
 def sendemail():
     if request.method == "POST":
         selected = request.form.getlist("checkboxes")
-    l = selected
+    li = selected
     text = request.form['text']
     con = sql.connect("mydatabase.db")
     con.row_factory = sql.Row
     cur = con.cursor()
     rows = []
-    for i in l:
+    for i in li:
         cur.execute("select * from items where name like ?", ('%'+i+'%',))
         row = cur.fetchone();
         rows.append("name = "+ row["name"]+", price = " + row["price"]+", details = " + row["details"]+" ,category = "+row["category"]+", Brand = "+ row["Brand"])
     print(rows)
-    msg = Message('Data from Flask - app', sender = 'shreya.36.ss@gmail.com', recipients = [text])
+    msg = Message('Data from Flask - app', sender = 'yourmail@gmail.com', recipients = [text])
     print(text)
     str1 = ''.join(rows)
     msg.body = str1
